@@ -7,8 +7,6 @@ package br.edu.utfpr.alunos.felipe.restful.auth;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import javax.annotation.Priority;
@@ -27,10 +25,9 @@ import javax.ws.rs.ext.Provider;
 @Priority(Priorities.AUTHENTICATION)
 public class JwtInterceptor implements ContainerRequestFilter {
 
-    private static final String AUTH_PATH = "authorization";
+    private static final String AUTH_PATH = "user/authorization";
     private static final String PRIVATE_KEY = "Authorization";
     private JwtTools jwtTools = JwtTools.getInstance();
-    private Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
 
     private Response getUnAuthorizeResponse(String message) {
         return Response
@@ -43,7 +40,6 @@ public class JwtInterceptor implements ContainerRequestFilter {
     @Override
     public ContainerRequest filter(ContainerRequest request) {
         String path = request.getPath();
-        logger.trace(path);
         if (path.equals(AUTH_PATH)) {
             return request;
         }
