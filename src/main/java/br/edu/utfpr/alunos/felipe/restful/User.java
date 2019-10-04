@@ -18,7 +18,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import br.edu.utfpr.alunos.felipe.restful.auth.JwtAnnotation;
 import br.edu.utfpr.alunos.felipe.restful.auth.JwtTools;
-
+import br.edu.utfpr.alunos.felipe.restful.database.Mongo;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 /**
  * REST Web Service
  *
@@ -29,6 +31,8 @@ public class User {
 
     @Context
     private UriInfo context;
+    
+    private final Mongo database = new Mongo();
 
     /**
      * Creates a new instance of User
@@ -43,7 +47,15 @@ public class User {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        return "Hello World";
+        MongoCollection<Document> collection = database.mongoDatabase.getCollection("Joao Cesar");
+        
+        Document doc = new Document()
+              .append("name", "Joe")
+              .append("dept", "IT")
+              .append("phone", "111-111-111");
+        collection.insertOne(doc);
+        
+        return "Saved Successfully";
     }
     
     @POST
