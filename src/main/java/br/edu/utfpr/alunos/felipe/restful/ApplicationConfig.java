@@ -6,25 +6,24 @@
 package br.edu.utfpr.alunos.felipe.restful;
 
 import br.edu.utfpr.alunos.felipe.restful.auth.CORSFilter;
-import java.util.HashMap;
-import java.util.Map;
 import br.edu.utfpr.alunos.felipe.restful.auth.JwtInterceptor;
-import com.sun.jersey.api.core.DefaultResourceConfig;
-import com.sun.jersey.api.core.ResourceConfig;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  *
  * @author felipe
  */
+
 @javax.ws.rs.ApplicationPath("/")
-public class ApplicationConfig extends DefaultResourceConfig {
+public class ApplicationConfig extends ResourceConfig {
 
     public ApplicationConfig() {
-        super(User.class);
-        Map<String, Object> maps = new HashMap<>();
-        maps.put(ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS, CORSFilter.class);
-        maps.put(ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS, JwtInterceptor.class);
-        setPropertiesAndFeatures(maps);
+        System.out.println("FELIPE STARTED");
+        packages("br.edu.utfpr.alunos.felipe.restful");
+        register(JwtInterceptor.class);
+        register(CORSFilter.class);
+        
+        System.out.println(isRegistered(JwtInterceptor.class));
     }
     
 }

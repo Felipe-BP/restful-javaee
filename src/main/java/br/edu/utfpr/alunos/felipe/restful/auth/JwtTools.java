@@ -21,7 +21,7 @@ import javax.crypto.SecretKey;
 public class JwtTools {
     private static JwtTools jwtTools = null;
     private static final long EXPIRATION_LIMIT = 30; // in minutes
-    private SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     
     private JwtTools() { }
     
